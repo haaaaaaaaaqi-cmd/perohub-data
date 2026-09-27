@@ -8,35 +8,120 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 <style>
   :root {
-    --bg-primary: #0b0f17;
-    --bg-secondary: #111827;
-    --bg-tertiary: #1a2332;
-    --bg-elevated: #1e293b;
-    --bg-hover: #243044;
-    --border-color: #2a3a52;
-    --border-light: #334155;
-    --text-primary: #e8ecf4;
-    --text-secondary: #94a3b8;
-    --text-tertiary: #64748b;
-    --accent: #22d3ee;
-    --accent-hover: #06b6d4;
-    --accent-soft: rgba(34, 211, 238, 0.12);
-    --accent-glow: rgba(34, 211, 238, 0.3);
-    --success: #34d399;
-    --warning: #fbbf24;
-    --danger: #f87171;
-    --purple: #a78bfa;
-    --pink: #f472b6;
-    --sidebar-width: 260px;
-    --module-nav-width: 64px;
-    --toolbar-height: 56px;
+    /* 框架设计令牌 - 亮色主题 (HSL 格式) */
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 6px;
+
+    /* 侧边栏主题变量 */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* 兼容变量 - 映射到框架令牌 */
+    --bg-primary: hsl(var(--background));
+    --bg-secondary: hsl(var(--sidebar-background));
+    --bg-tertiary: hsl(var(--muted));
+    --bg-elevated: hsl(var(--card));
+    --bg-hover: hsl(var(--sidebar-accent));
+    --border-color: hsl(var(--border));
+    --border-light: hsl(var(--input));
+    --text-primary: hsl(var(--foreground));
+    --text-secondary: hsl(var(--muted-foreground));
+    --text-tertiary: hsl(var(--muted-foreground) / 0.7);
+    --accent: hsl(var(--primary));
+    --accent-hover: hsl(var(--primary) / 0.9);
+    --accent-soft: hsl(var(--primary) / 0.1);
+    --accent-glow: hsl(var(--primary) / 0.3);
+    --success: hsl(142.1 70.6% 45.3%);
+    --warning: hsl(45.4 93.4% 47.5%);
+    --danger: hsl(var(--destructive));
+    --purple: hsl(271 81% 56%);
+    --pink: hsl(330 81% 60%);
+
+    --sidebar-width: 240px;
+    --module-nav-width: 56px;
+    --toolbar-height: 48px;
     --detail-panel-width: 320px;
     --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 14px;
-    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
-    --transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 暗色主题 */
+  .dark {
+    --background: 222.2 47.4% 11.2%;
+    --foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --popover: 222.2 47.4% 11.2%;
+    --popover-foreground: 210 40% 98%;
+    --card: 222.2 47.4% 11.2%;
+    --card-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --sidebar-background: 222.2 47.4% 11.2%;
+    --sidebar-foreground: 215 20.2% 65.1%;
+    --sidebar-primary: 210 40% 98%;
+    --sidebar-primary-foreground: 222.2 47.4% 11.2%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 212.7 26.8% 83.9%;
+
+    --bg-primary: hsl(var(--background));
+    --bg-secondary: hsl(var(--sidebar-background));
+    --bg-tertiary: hsl(var(--muted));
+    --bg-elevated: hsl(var(--card));
+    --bg-hover: hsl(var(--sidebar-accent));
+    --border-color: hsl(var(--border));
+    --border-light: hsl(var(--input));
+    --text-primary: hsl(var(--foreground));
+    --text-secondary: hsl(var(--muted-foreground));
+    --text-tertiary: hsl(var(--muted-foreground) / 0.7);
+    --accent: hsl(var(--primary));
+    --accent-hover: hsl(var(--primary) / 0.9);
+    --accent-soft: hsl(var(--primary) / 0.1);
+    --accent-glow: hsl(var(--primary) / 0.3);
+    --success: hsl(142.1 70.6% 45.3%);
+    --warning: hsl(45.4 93.4% 47.5%);
+    --danger: hsl(var(--destructive));
   }
 
   * {
@@ -51,12 +136,13 @@
   }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
     font-size: 14px;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Scrollbar */
@@ -75,13 +161,13 @@
   /* Module Navigation (leftmost icon bar) */
   .module-nav {
     width: var(--module-nav-width);
-    background: #08090d;
+    background: var(--bg-secondary);
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-shrink: 0;
-    padding: 11px 0;
+    padding: 8px 0;
     gap: 4px;
     z-index: 10;
   }
@@ -90,7 +176,7 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--pink), #e879f9);
+    background: linear-gradient(135deg, var(--purple), var(--pink));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -112,7 +198,7 @@
     height: 10px;
     border-radius: 50%;
     background: var(--success);
-    border: 2px solid #08090d;
+    border: 2px solid var(--bg-secondary);
   }
 
   .module-nav-divider {
@@ -124,9 +210,9 @@
   }
 
   .module-nav-item {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -141,16 +227,16 @@
 
   .module-nav-item:hover {
     background: var(--bg-hover);
-    color: var(--text-secondary);
+    color: var(--text-primary);
   }
 
   .module-nav-item.active {
-    background: linear-gradient(135deg, var(--accent), #0891b2);
-    color: #0b0f17;
+    background: var(--accent);
+    color: hsl(var(--primary-foreground));
   }
 
   .module-nav-item.active .module-nav-label {
-    color: #0b0f17;
+    color: hsl(var(--primary-foreground));
     font-weight: 600;
   }
 
@@ -168,7 +254,7 @@
   }
 
   .module-nav-item:hover .module-nav-label {
-    color: var(--text-secondary);
+    color: var(--text-primary);
   }
 
   .module-nav-spacer {
@@ -180,7 +266,7 @@
     left: calc(100% + 8px);
     top: 50%;
     transform: translateY(-50%);
-    background: var(--bg-elevated);
+    background: hsl(var(--popover));
     color: var(--text-primary);
     padding: 4px 10px;
     border-radius: 6px;
@@ -189,7 +275,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--transition);
-    border: 1px solid var(--border-color);
+    border: 1px solid hsl(var(--border));
     z-index: 1000;
   }
 
@@ -247,7 +333,7 @@
     justify-content: center;
     font-weight: 700;
     font-size: 13px;
-    color: #0b0f17;
+    color: hsl(var(--primary-foreground));
     flex-shrink: 0;
   }
 
@@ -287,8 +373,8 @@
     top: calc(100% + 4px);
     left: 12px;
     right: 12px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-color);
+    background: hsl(var(--popover));
+    border: 1px solid hsl(var(--border));
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
     z-index: 9999;
@@ -399,26 +485,23 @@
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-    color: #0b0f17;
-    font-weight: 600;
-    box-shadow: 0 2px 12px var(--accent-glow);
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 20px var(--accent-glow);
+    background: hsl(var(--primary) / 0.9);
   }
 
   .btn-secondary {
-    background: var(--bg-tertiary);
-    border-color: var(--border-color);
-    color: var(--text-secondary);
+    background: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-secondary:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
+    background: hsl(var(--secondary) / 0.8);
   }
 
   .btn-icon {
@@ -432,8 +515,8 @@
   }
 
   .btn-ghost:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
   }
 
   /* ============================================================
@@ -475,10 +558,10 @@
   }
 
   .game-tab.active {
-    background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-    color: #0b0f17;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
     border-color: transparent;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .server-list {
@@ -500,7 +583,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 9px 10px;
+    padding: 8px 10px;
     border-radius: var(--radius-sm);
     cursor: pointer;
     color: var(--text-secondary);
@@ -511,7 +594,7 @@
   }
 
   .server-item:hover {
-    background: var(--bg-tertiary);
+    background: var(--bg-hover);
     color: var(--text-primary);
   }
 
@@ -537,7 +620,7 @@
 
   .server-item.active .server-item-icon {
     background: var(--accent);
-    color: #0b0f17;
+    color: hsl(var(--primary-foreground));
   }
 
   .server-item-info { flex: 1; min-width: 0; }
@@ -676,7 +759,7 @@
     justify-content: center;
   }
 
-  .dashboard-title-icon svg { width: 18px; height: 18px; color: #0b0f17; }
+  .dashboard-title-icon svg { width: 18px; height: 18px; color: hsl(var(--primary-foreground)); }
   .dashboard-toolbar-spacer { flex: 1; }
 
   .time-range-tabs {
@@ -698,7 +781,7 @@
   }
 
   .time-range-tab:hover { color: var(--text-primary); }
-  .time-range-tab.active { background: var(--accent); color: #0b0f17; font-weight: 600; }
+  .time-range-tab.active { background: var(--accent); color: hsl(var(--primary-foreground)); font-weight: 600; }
 
   /* Custom Date Range */
   .custom-date-range {
@@ -918,7 +1001,7 @@
 
   .multi-filter-option.selected {
     background: var(--accent);
-    color: #0b0f17;
+    color: hsl(var(--primary-foreground));
     border-color: var(--accent);
     font-weight: 600;
   }
@@ -953,7 +1036,7 @@
     background: var(--accent);
     border: none;
     border-radius: var(--radius-sm);
-    color: #0b0f17;
+    color: hsl(var(--primary-foreground));
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
@@ -982,15 +1065,16 @@
   }
 
   .metric-card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
     border-radius: var(--radius-md);
     padding: 16px;
+    box-shadow: var(--shadow-sm);
     transition: all var(--transition);
   }
 
   .metric-card:hover {
-    border-color: var(--border-light);
+    border-color: hsl(var(--border) / 0.8);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
   }
@@ -1046,10 +1130,11 @@
   .chart-row.row-2 { grid-template-columns: 1fr 1fr; }
 
   .chart-card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
     border-radius: var(--radius-md);
     padding: 16px;
+    box-shadow: var(--shadow-sm);
     min-height: 280px;
     display: flex;
     flex-direction: column;
@@ -1095,10 +1180,11 @@
   }
 
   .bottom-table-card {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
     border-radius: var(--radius-md);
     padding: 16px;
+    box-shadow: var(--shadow-sm);
   }
 
   .bottom-table-header {
@@ -1974,8 +2060,8 @@
 
   .players-toolbar {
     padding: 14px 20px;
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-color);
+    background: hsl(var(--background));
+    border-bottom: 1px solid hsl(var(--border));
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -2121,7 +2207,7 @@
     height: 22px;
     padding: 0 8px;
     background: linear-gradient(135deg, var(--warning), #f59e0b);
-    color: #0b0f17;
+    color: hsl(var(--primary-foreground));
     border-radius: 4px;
     font-size: 11px;
     font-weight: 700;
@@ -2180,7 +2266,7 @@
 
   .pagination-btn:hover:not(:disabled) { background: var(--bg-hover); color: var(--text-primary); }
   .pagination-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .pagination-btn.active { background: var(--accent); color: #0b0f17; border-color: var(--accent); font-weight: 600; }
+  .pagination-btn.active { background: var(--accent); color: hsl(var(--primary-foreground)); border-color: var(--accent); font-weight: 600; }
 
   .pagination-page-size {
     display: flex;
@@ -2445,8 +2531,8 @@
   /* Detail Panel */
   .detail-panel {
     width: 320px;
-    background: var(--bg-secondary);
-    border-left: 1px solid var(--border-color);
+    background: hsl(var(--background));
+    border-left: 1px solid hsl(var(--border));
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
@@ -2478,8 +2564,8 @@
   }
 
   .modal {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
+    background: hsl(var(--popover));
+    border: 1px solid hsl(var(--border));
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
     width: 480px;
@@ -3260,6 +3346,11 @@
       <span class="module-nav-tooltip">权限</span>
     </div>
     <div class="module-nav-spacer"></div>
+    <div class="module-nav-item" id="themeToggleBtn" onclick="quickToggleTheme()" title="切换主题">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <span class="module-nav-label">主题</span>
+      <span class="module-nav-tooltip">切换亮色/暗色</span>
+    </div>
     <div class="module-nav-item" data-module="settings" onclick="switchModule('settings')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       <span class="module-nav-label">设置</span>
@@ -4468,6 +4559,28 @@ function refreshCurrentView() {
 }
 
 // --- Dashboard ---
+// Get ECharts theme based on current app theme (dark/light)
+function getChartTheme() {
+  return document.documentElement.classList.contains('dark') ? 'dark' : undefined;
+}
+
+// Get theme-aware chart colors from CSS variables
+function getChartColors() {
+  const cs = getComputedStyle(document.documentElement);
+  const hsl = (name) => {
+    const v = cs.getPropertyValue(name).trim();
+    return v ? `hsl(${v})` : '';
+  };
+  return {
+    tooltipBg: hsl('--popover'),
+    tooltipBorder: hsl('--border'),
+    tooltipText: hsl('--popover-foreground'),
+    axisLine: hsl('--border'),
+    axisLabel: hsl('--muted-foreground'),
+    splitLine: hsl('--muted')
+  };
+}
+
 function renderDashboard() {
   if (currentGame === 'arcade') {
     const view = getGV().arcadeView;
@@ -5099,13 +5212,13 @@ function initArcadeCharts(dailyData, gameDataObj) {
   // Revenue Trend Chart
   const revenueEl = document.getElementById('revenueTrendChart');
   if (revenueEl && typeof echarts !== 'undefined') {
-    const revenueChart = echarts.init(revenueEl, 'dark');
+    const revenueChart = echarts.init(revenueEl, getChartTheme());
     revenueChart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'axis', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' }, formatter: '{b}<br/>营收: ¥{c}' },
+      tooltip: { trigger: 'axis', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText }, formatter: '{b}<br/>营收: ¥{c}' },
       grid: { left: '3%', right: '4%', bottom: '3%', top: '10%', containLabel: true },
-      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b', rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
-      yAxis: { type: 'value', name: '营收(元)', splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b' } },
+      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel, rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
+      yAxis: { type: 'value', name: '营收(元)', splitLine: { lineStyle: { color: getChartColors().splitLine } }, axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel } },
       series: [
         { name: '营收', type: 'line', smooth: true, data: dailyData.map(d => d.revenue), itemStyle: { color: '#f472b6' }, lineStyle: { width: 2 }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(244, 114, 182, 0.3)' }, { offset: 1, color: 'rgba(244, 114, 182, 0.02)' }] } } }
       ]
@@ -5116,13 +5229,13 @@ function initArcadeCharts(dailyData, gameDataObj) {
   // Order Trend Chart
   const orderEl = document.getElementById('orderTrendChart');
   if (orderEl && typeof echarts !== 'undefined') {
-    const orderChart = echarts.init(orderEl, 'dark');
+    const orderChart = echarts.init(orderEl, getChartTheme());
     orderChart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'axis', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' }, formatter: '{b}<br/>订单: {c}' },
+      tooltip: { trigger: 'axis', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText }, formatter: '{b}<br/>订单: {c}' },
       grid: { left: '3%', right: '4%', bottom: '3%', top: '10%', containLabel: true },
-      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b', rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
-      yAxis: { type: 'value', name: '订单数', splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b' } },
+      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel, rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
+      yAxis: { type: 'value', name: '订单数', splitLine: { lineStyle: { color: getChartColors().splitLine } }, axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel } },
       series: [
         { name: '订单', type: 'bar', data: dailyData.map(d => d.orders), itemStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: '#34d399' }, { offset: 1, color: '#0d9488' }] }, borderRadius: [4, 4, 0, 0] }, barWidth: '50%' }
       ]
@@ -5133,13 +5246,13 @@ function initArcadeCharts(dailyData, gameDataObj) {
   // Device Status Pie Chart
   const statusEl = document.getElementById('deviceStatusChart');
   if (statusEl && typeof echarts !== 'undefined') {
-    const statusChart = echarts.init(statusEl, 'dark');
+    const statusChart = echarts.init(statusEl, getChartTheme());
     const onlineCount = gameDataObj.devices.filter(d => d.status === 'online').length;
     const offlineCount = gameDataObj.devices.filter(d => d.status === 'offline').length;
     const faultCount = gameDataObj.devices.filter(d => d.status === 'fault').length;
     statusChart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'item', formatter: '{b}: {c}台 ({d}%)', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+      tooltip: { trigger: 'item', formatter: '{b}: {c}台 ({d}%)', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
       legend: { orient: 'vertical', right: '5%', top: 'center', textStyle: { color: '#94a3b8', fontSize: 11 }, itemWidth: 10, itemHeight: 10 },
       series: [{
         type: 'pie',
@@ -5391,14 +5504,14 @@ function initArcadeTrendCharts(dailyData, prevPeriodData, lastYearData, gameData
   // Revenue Comparison Chart
   const revCompareEl = document.getElementById('revenueCompareChart');
   if (revCompareEl && typeof echarts !== 'undefined') {
-    const chart = echarts.init(revCompareEl, 'dark');
+    const chart = echarts.init(revCompareEl, getChartTheme());
     chart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'axis', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+      tooltip: { trigger: 'axis', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
       legend: { data: ['本期', '上期', '去年同期'], textStyle: { color: '#94a3b8' }, top: 0, right: 10 },
       grid: { left: '3%', right: '4%', bottom: '3%', top: '12%', containLabel: true },
-      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b', rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
-      yAxis: { type: 'value', name: '营收(元)', splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b' } },
+      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel, rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
+      yAxis: { type: 'value', name: '营收(元)', splitLine: { lineStyle: { color: getChartColors().splitLine } }, axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel } },
       series: [
         { name: '本期', type: 'line', smooth: true, data: dailyData.map(d => d.revenue), itemStyle: { color: '#f472b6' }, lineStyle: { width: 2.5 }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(244, 114, 182, 0.25)' }, { offset: 1, color: 'rgba(244, 114, 182, 0.02)' }] } } },
         { name: '上期', type: 'line', smooth: true, data: prevPeriodData.map(d => d.revenue), itemStyle: { color: '#60a5fa' }, lineStyle: { width: 2, type: 'dashed' } },
@@ -5411,14 +5524,14 @@ function initArcadeTrendCharts(dailyData, prevPeriodData, lastYearData, gameData
   // Order Comparison Chart
   const ordCompareEl = document.getElementById('orderCompareChart');
   if (ordCompareEl && typeof echarts !== 'undefined') {
-    const chart = echarts.init(ordCompareEl, 'dark');
+    const chart = echarts.init(ordCompareEl, getChartTheme());
     chart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'axis', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+      tooltip: { trigger: 'axis', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
       legend: { data: ['本期订单', '上期订单'], textStyle: { color: '#94a3b8' }, top: 0 },
       grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
-      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b', rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
-      yAxis: { type: 'value', name: '订单数', splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b' } },
+      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel, rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
+      yAxis: { type: 'value', name: '订单数', splitLine: { lineStyle: { color: getChartColors().splitLine } }, axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel } },
       series: [
         { name: '本期订单', type: 'bar', data: dailyData.map(d => d.orders), itemStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: '#34d399' }, { offset: 1, color: '#0d9488' }] }, borderRadius: [4, 4, 0, 0] }, barWidth: '35%' },
         { name: '上期订单', type: 'bar', data: prevPeriodData.map(d => d.orders), itemStyle: { color: 'rgba(100, 116, 139, 0.5)', borderRadius: [4, 4, 0, 0] }, barWidth: '35%' }
@@ -5431,13 +5544,13 @@ function initArcadeTrendCharts(dailyData, prevPeriodData, lastYearData, gameData
   const aovEl = document.getElementById('aovTrendChart');
   if (aovEl && typeof echarts !== 'undefined') {
     const aovData = dailyData.map(d => d.orders > 0 ? parseFloat((d.revenue / d.orders).toFixed(2)) : 0);
-    const chart = echarts.init(aovEl, 'dark');
+    const chart = echarts.init(aovEl, getChartTheme());
     chart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'axis', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' }, formatter: '{b}<br/>客单价: ¥{c}' },
+      tooltip: { trigger: 'axis', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText }, formatter: '{b}<br/>客单价: ¥{c}' },
       grid: { left: '3%', right: '4%', bottom: '3%', top: '10%', containLabel: true },
-      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b', rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
-      yAxis: { type: 'value', name: '客单价(元)', splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b' } },
+      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel, rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
+      yAxis: { type: 'value', name: '客单价(元)', splitLine: { lineStyle: { color: getChartColors().splitLine } }, axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel } },
       series: [
         { name: '客单价', type: 'line', smooth: true, data: aovData, itemStyle: { color: '#c084fc' }, lineStyle: { width: 2 }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(192, 132, 252, 0.2)' }, { offset: 1, color: 'rgba(192, 132, 252, 0.02)' }] } }, markLine: { silent: true, lineStyle: { color: '#fbbf24', type: 'dashed' }, data: [{ type: 'average', name: '平均值' }] } }
       ]
@@ -5466,14 +5579,14 @@ function initArcadeTrendCharts(dailyData, prevPeriodData, lastYearData, gameData
       };
     });
 
-    const chart = echarts.init(topLocEl, 'dark');
+    const chart = echarts.init(topLocEl, getChartTheme());
     chart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'axis', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+      tooltip: { trigger: 'axis', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
       legend: { data: topLocations.map(l => l.name), textStyle: { color: '#94a3b8', fontSize: 11 }, top: 0, type: 'scroll' },
       grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
-      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b', rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
-      yAxis: { type: 'value', name: '营收(元)', splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b' } },
+      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel, rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
+      yAxis: { type: 'value', name: '营收(元)', splitLine: { lineStyle: { color: getChartColors().splitLine } }, axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel } },
       series: locationSeries
     });
     chartInstances.topLocations = chart;
@@ -5726,10 +5839,10 @@ function initArcadeRiskCharts(gameDataObj) {
     const warning = alerts.offlineDevices.filter(d => d.lastOfflineHours < 24).length + alerts.decliningLocations.length;
     const info = gameDataObj.locations.filter(l => l.revenueTrend >= 0 && l.revenueTrend < 5).length;
     
-    const chart = echarts.init(riskLevelEl, 'dark');
+    const chart = echarts.init(riskLevelEl, getChartTheme());
     chart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'item', formatter: '{b}: {c}项 ({d}%)', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+      tooltip: { trigger: 'item', formatter: '{b}: {c}项 ({d}%)', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
       legend: { orient: 'vertical', right: '5%', top: 'center', textStyle: { color: '#94a3b8', fontSize: 11 }, itemWidth: 10, itemHeight: 10 },
       series: [{
         type: 'pie',
@@ -5759,10 +5872,10 @@ function initArcadeRiskCharts(gameDataObj) {
     const faultData = Object.entries(faultTypes).map(([name, value]) => ({ name, value }));
     const colors = ['#f87171', '#fb923c', '#fbbf24', '#a78bfa'];
     
-    const chart = echarts.init(faultTypeEl, 'dark');
+    const chart = echarts.init(faultTypeEl, getChartTheme());
     chart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'item', formatter: '{b}: {c}台 ({d}%)', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+      tooltip: { trigger: 'item', formatter: '{b}: {c}台 ({d}%)', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
       legend: { orient: 'vertical', right: '5%', top: 'center', textStyle: { color: '#94a3b8', fontSize: 11 }, itemWidth: 10, itemHeight: 10 },
       series: [{
         type: 'pie',
@@ -6255,15 +6368,15 @@ function initCustomDashboardCharts(dailyData, gameDataObj) {
     const chartEl = document.getElementById('customChart_' + card.id);
     if (!chartEl || typeof echarts === 'undefined') return;
 
-    const chart = echarts.init(chartEl, 'dark');
+    const chart = echarts.init(chartEl, getChartTheme());
 
     if (widget.type === 'line') {
       chart.setOption({
         backgroundColor: 'transparent',
-        tooltip: { trigger: 'axis', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+        tooltip: { trigger: 'axis', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
         grid: { left: '3%', right: '4%', bottom: '3%', top: '5%', containLabel: true },
-        xAxis: { type: 'category', data: widgetData.labels || [], axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b', fontSize: 9, rotate: dailyData.length > 15 ? 30 : 0 } },
-        yAxis: { type: 'value', splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b', fontSize: 9 } },
+        xAxis: { type: 'category', data: widgetData.labels || [], axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel, fontSize: 9, rotate: dailyData.length > 15 ? 30 : 0 } },
+        yAxis: { type: 'value', splitLine: { lineStyle: { color: getChartColors().splitLine } }, axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel, fontSize: 9 } },
         series: [{
           type: 'line',
           smooth: true,
@@ -6277,10 +6390,10 @@ function initCustomDashboardCharts(dailyData, gameDataObj) {
     } else if (widget.type === 'bar') {
       chart.setOption({
         backgroundColor: 'transparent',
-        tooltip: { trigger: 'axis', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+        tooltip: { trigger: 'axis', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
         grid: { left: '3%', right: '4%', bottom: '3%', top: '5%', containLabel: true },
-        xAxis: { type: 'category', data: widgetData.labels || [], axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b', fontSize: 9, rotate: dailyData.length > 15 ? 30 : 0 } },
-        yAxis: { type: 'value', splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b', fontSize: 9 } },
+        xAxis: { type: 'category', data: widgetData.labels || [], axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel, fontSize: 9, rotate: dailyData.length > 15 ? 30 : 0 } },
+        yAxis: { type: 'value', splitLine: { lineStyle: { color: getChartColors().splitLine } }, axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel, fontSize: 9 } },
         series: [{
           type: 'bar',
           data: widgetData.trend || [],
@@ -6291,7 +6404,7 @@ function initCustomDashboardCharts(dailyData, gameDataObj) {
     } else if (widget.type === 'pie') {
       chart.setOption({
         backgroundColor: 'transparent',
-        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+        tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
         legend: { orient: 'vertical', right: '5%', top: 'center', textStyle: { color: '#94a3b8', fontSize: 10 }, itemWidth: 8, itemHeight: 8 },
         series: [{
           type: 'pie',
@@ -6858,16 +6971,16 @@ function initCharts(dailyData, gameDataObj) {
   // Trend Chart
   const trendEl = document.getElementById('trendChart');
   if (trendEl && typeof echarts !== 'undefined') {
-    const trendChart = echarts.init(trendEl, 'dark');
+    const trendChart = echarts.init(trendEl, getChartTheme());
     trendChart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'axis', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+      tooltip: { trigger: 'axis', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
       legend: { data: ['DAU', '新增用户', '流水收入'], textStyle: { color: '#94a3b8' }, top: 0 },
       grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
-      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b', rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
+      xAxis: { type: 'category', data: dailyData.map(d => d.date), axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel, rotate: dailyData.length > 30 ? 45 : 0, fontSize: 10 } },
       yAxis: [
-        { type: 'value', name: '用户数', splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b' } },
-        { type: 'value', name: '流水(元)', splitLine: { show: false }, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b' } }
+        { type: 'value', name: '用户数', splitLine: { lineStyle: { color: getChartColors().splitLine } }, axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel } },
+        { type: 'value', name: '流水(元)', splitLine: { show: false }, axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel } }
       ],
       series: [
         { name: 'DAU', type: 'line', smooth: true, data: dailyData.map(d => d.dau), itemStyle: { color: '#60a5fa' }, lineStyle: { width: 2 }, areaStyle: { color: 'rgba(96, 165, 250, 0.1)' } },
@@ -6881,11 +6994,11 @@ function initCharts(dailyData, gameDataObj) {
   // Payment Distribution Chart
   const paymentEl = document.getElementById('paymentChart');
   if (paymentEl && typeof echarts !== 'undefined') {
-    const paymentChart = echarts.init(paymentEl, 'dark');
+    const paymentChart = echarts.init(paymentEl, getChartTheme());
     const colors = ['#64748b', '#60a5fa', '#34d399', '#c084fc', '#fbbf24'];
     paymentChart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'item', formatter: '{b}: {c}%', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+      tooltip: { trigger: 'item', formatter: '{b}: {c}%', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
       legend: { orient: 'vertical', right: '5%', top: 'center', textStyle: { color: '#94a3b8', fontSize: 11 }, itemWidth: 10, itemHeight: 10 },
       series: [{
         type: 'pie',
@@ -6904,14 +7017,14 @@ function initCharts(dailyData, gameDataObj) {
   // Retention Chart
   const retentionEl = document.getElementById('retentionChart');
   if (retentionEl && typeof echarts !== 'undefined') {
-    const retentionChart = echarts.init(retentionEl, 'dark');
+    const retentionChart = echarts.init(retentionEl, getChartTheme());
     retentionChart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'axis', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+      tooltip: { trigger: 'axis', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
       legend: { data: ['本周', '上周'], textStyle: { color: '#94a3b8' }, top: 0 },
       grid: { left: '3%', right: '4%', bottom: '3%', top: '15%', containLabel: true },
-      xAxis: { type: 'category', data: ['次日', '3日', '7日', '15日', '30日'], axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b' } },
-      yAxis: { type: 'value', name: '留存率(%)', splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } }, axisLabel: { color: '#64748b' } },
+      xAxis: { type: 'category', data: ['次日', '3日', '7日', '15日', '30日'], axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel } },
+      yAxis: { type: 'value', name: '留存率(%)', splitLine: { lineStyle: { color: getChartColors().splitLine } }, axisLine: { lineStyle: { color: getChartColors().axisLine } }, axisLabel: { color: getChartColors().axisLabel } },
       series: [
         { name: '本周', type: 'bar', data: gameDataObj.retentionData.current, itemStyle: { color: '#60a5fa', borderRadius: [4, 4, 0, 0] }, barWidth: '30%' },
         { name: '上周', type: 'bar', data: gameDataObj.retentionData.previous, itemStyle: { color: '#334155', borderRadius: [4, 4, 0, 0] }, barWidth: '30%' }
@@ -6923,11 +7036,11 @@ function initCharts(dailyData, gameDataObj) {
   // Level Distribution Chart
   const levelEl = document.getElementById('levelChart');
   if (levelEl && typeof echarts !== 'undefined') {
-    const levelChart = echarts.init(levelEl, 'dark');
+    const levelChart = echarts.init(levelEl, getChartTheme());
     const levelColors = ['#60a5fa', '#34d399', '#fbbf24', '#c084fc', '#f472b6'];
     levelChart.setOption({
       backgroundColor: 'transparent',
-      tooltip: { trigger: 'item', formatter: '{b}: {c}%', backgroundColor: 'rgba(20, 26, 39, 0.95)', borderColor: '#334155', textStyle: { color: '#e2e8f0' } },
+      tooltip: { trigger: 'item', formatter: '{b}: {c}%', backgroundColor: getChartColors().tooltipBg, borderColor: getChartColors().tooltipBorder, textStyle: { color: getChartColors().tooltipText } },
       legend: { orient: 'vertical', right: '5%', top: 'center', textStyle: { color: '#94a3b8', fontSize: 11 }, itemWidth: 10, itemHeight: 10 },
       series: [{
         type: 'pie',
@@ -7645,14 +7758,14 @@ const THEME_PRESETS = {
 
 // Accent color presets
 const ACCENT_COLORS = {
-  cyan: { color: '#22d3ee', hover: '#06b6d4', soft: 'rgba(34, 211, 238, 0.12)', glow: 'rgba(34, 211, 238, 0.3)' },
-  purple: { color: '#a78bfa', hover: '#8b5cf6', soft: 'rgba(167, 139, 250, 0.12)', glow: 'rgba(167, 139, 250, 0.3)' },
-  blue: { color: '#3b82f6', hover: '#2563eb', soft: 'rgba(59, 130, 246, 0.12)', glow: 'rgba(59, 130, 246, 0.3)' },
-  green: { color: '#34d399', hover: '#10b981', soft: 'rgba(52, 211, 153, 0.12)', glow: 'rgba(52, 211, 153, 0.3)' },
-  orange: { color: '#fb923c', hover: '#f97316', soft: 'rgba(251, 146, 60, 0.12)', glow: 'rgba(251, 146, 60, 0.3)' },
-  pink: { color: '#f472b6', hover: '#ec4899', soft: 'rgba(244, 114, 182, 0.12)', glow: 'rgba(244, 114, 182, 0.3)' },
-  red: { color: '#f87171', hover: '#ef4444', soft: 'rgba(248, 113, 113, 0.12)', glow: 'rgba(248, 113, 113, 0.3)' },
-  yellow: { color: '#fbbf24', hover: '#f59e0b', soft: 'rgba(251, 191, 36, 0.12)', glow: 'rgba(251, 191, 36, 0.3)' }
+  cyan:   { color: '#22d3ee', hover: '#06b6d4', soft: 'rgba(34, 211, 238, 0.12)', glow: 'rgba(34, 211, 238, 0.3)', hsl: '187 85% 53%' },
+  purple: { color: '#a78bfa', hover: '#8b5cf6', soft: 'rgba(167, 139, 250, 0.12)', glow: 'rgba(167, 139, 250, 0.3)', hsl: '258 90% 76%' },
+  blue:   { color: '#3b82f6', hover: '#2563eb', soft: 'rgba(59, 130, 246, 0.12)', glow: 'rgba(59, 130, 246, 0.3)', hsl: '217 91% 60%' },
+  green:  { color: '#34d399', hover: '#10b981', soft: 'rgba(52, 211, 153, 0.12)', glow: 'rgba(52, 211, 153, 0.3)', hsl: '158 64% 52%' },
+  orange: { color: '#fb923c', hover: '#f97316', soft: 'rgba(251, 146, 60, 0.12)', glow: 'rgba(251, 146, 60, 0.3)', hsl: '25 95% 60%' },
+  pink:   { color: '#f472b6', hover: '#ec4899', soft: 'rgba(244, 114, 182, 0.12)', glow: 'rgba(244, 114, 182, 0.3)', hsl: '327 86% 70%' },
+  red:    { color: '#f87171', hover: '#ef4444', soft: 'rgba(248, 113, 113, 0.12)', glow: 'rgba(248, 113, 113, 0.3)', hsl: '0 91% 71%' },
+  yellow: { color: '#fbbf24', hover: '#f59e0b', soft: 'rgba(251, 191, 36, 0.12)', glow: 'rgba(251, 191, 36, 0.3)', hsl: '45 96% 57%' }
 };
 
 // Font family presets
@@ -7695,14 +7808,14 @@ function saveAppSettings() {
 function applySettingsToUI() {
   const root = document.documentElement;
 
-  // Apply theme
-  const themeVars = THEME_PRESETS[appSettings.theme] || THEME_PRESETS.dark;
-  Object.entries(themeVars).forEach(([prop, val]) => {
-    root.style.setProperty(prop, val);
-  });
+  // Apply theme using framework's .dark class on <html>
+  const darkThemes = ['dark', 'midnight'];
+  const isDark = darkThemes.includes(appSettings.theme);
+  root.classList.toggle('dark', isDark);
 
-  // Apply accent color
-  const accent = ACCENT_COLORS[appSettings.accentColor] || ACCENT_COLORS.cyan;
+  // Apply accent color (sets --primary HSL + compatibility --accent vars)
+  const accent = ACCENT_COLORS[appSettings.accentColor] || ACCENT_COLORS.blue;
+  root.style.setProperty('--primary', accent.hsl);
   root.style.setProperty('--accent', accent.color);
   root.style.setProperty('--accent-hover', accent.hover);
   root.style.setProperty('--accent-soft', accent.soft);
@@ -7722,6 +7835,23 @@ function applySettingsToUI() {
   // Apply animation speed
   const speeds = { fast: '100ms', normal: '180ms', slow: '300ms', none: '0ms' };
   root.style.setProperty('--transition', (speeds[appSettings.animationSpeed] || '180ms') + ' cubic-bezier(0.4, 0, 0.2, 1)');
+
+  // Update theme toggle icon (sun = light mode, moon = dark mode)
+  const themeIcon = document.getElementById('themeIcon');
+  if (themeIcon) {
+    if (isDark) {
+      themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+    } else {
+      themeIcon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+    }
+  }
+}
+
+// Quick toggle between light and dark theme
+function quickToggleTheme() {
+  const darkThemes = ['dark', 'midnight'];
+  const isDark = darkThemes.includes(appSettings.theme);
+  setSetting('theme', isDark ? 'light' : 'dark');
 }
 
 // Get a setting value with fallback
